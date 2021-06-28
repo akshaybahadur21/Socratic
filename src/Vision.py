@@ -7,6 +7,7 @@ from src.MathModel import MathModel
 from src.utils.VisionUtils import get_idx_to_coordinates, rescale_frame
 from src.utils.MathUtils import solve_eqn
 
+
 class Vision:
     def __init__(self):
         self.mp_drawing = mp.solutions.drawing_utils
@@ -17,7 +18,7 @@ class Vision:
         self.w = 650
         self.h = 100
 
-    def get_equation(self):
+    def solve_equation(self):
         frame_count = 0
         hands = self.mp_hands.Hands(
             min_detection_confidence=0.7, min_tracking_confidence=0.7)

@@ -6,7 +6,7 @@ class Socratic:
         self.vision = Vision()
 
     def solve(self):
-        self.vision.get_equation()
+        self.vision.solve_equation()
 
 
 if __name__ == '__main__':
