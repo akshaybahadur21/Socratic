@@ -20,6 +20,7 @@ class Vision:
 
     def solve_equation(self):
         frame_count = 0
+        res = 0
         hands = self.mp_hands.Hands(
             min_detection_confidence=0.7, min_tracking_confidence=0.7)
         hand_landmark_drawing_spec = self.mp_drawing.DrawingSpec(thickness=5, circle_radius=5)
@@ -95,11 +96,11 @@ class Vision:
             pos = 0
             if len(res_list) > 0:
                 res = solve_eqn(res_list)
-                image = cv2.putText(image, str(res), (100 + pos, 200),
-                                    cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 5)
                 res_list.clear()
-            image = cv2.putText(image, "Conv Network :  ", (10, 200),
-                                cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 5)
+            image = cv2.putText(image, str(res), (920, 50),
+                                cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
+            image = cv2.putText(image, "Answer =  ", (600, 50),
+                                cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
             cv2.imshow("Res", rescale_frame(image, percent=100))
             cv2.imshow("BB", rescale_frame(blackboard, percent=100))
 
