@@ -47,5 +47,5 @@ python3 Socratic.py
 
 ## References 🔱
  
- -  Ivan Grishchenko and Valentin Bazarevsky, Research Engineers, Google Research. [Mediapipe by Google](https://github.com/google/mediapipe)
+-  Ivan Grishchenko and Valentin Bazarevsky, Research Engineers, Google Research. [Mediapipe by Google](https://github.com/google/mediapipe)
 - [Socratic by Google](https://socratic.org/)
