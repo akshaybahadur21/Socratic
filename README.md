@@ -49,3 +49,4 @@ python3 Socratic.py
  
 -  Ivan Grishchenko and Valentin Bazarevsky, Research Engineers, Google Research. [Mediapipe by Google](https://github.com/google/mediapipe)
 - [Socratic by Google](https://socratic.org/)
+- [Microsoft Math Solver](https://math.microsoft.com/en)
