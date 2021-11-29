@@ -43,7 +43,7 @@ python3 Socratic.py
 ```
 
 ## Results 📊
-<img src="https://github.com/akshaybahadur21/BLOB/blob/master/qd.gif">
+<img src="https://github.com/akshaybahadur21/BLOB/blob/master/soc.gif">
 
 ## References 🔱
  
