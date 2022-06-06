@@ -45,6 +45,8 @@ python3 Socratic.py
 ## Results 📊
 <img src="https://github.com/akshaybahadur21/BLOB/blob/master/soc.gif">
 
+###### Made with ❤️ and 🦙 by Akshay Bahadur
+
 ## References 🔱
  
 -  Ivan Grishchenko and Valentin Bazarevsky, Research Engineers, Google Research. [Mediapipe by Google](https://github.com/google/mediapipe)
