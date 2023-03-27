@@ -48,14 +48,14 @@ If you face any problem, kindly raise an issue
 ## Setup 🖥️
 
 1) Add your mathematics symbol trained model in the `models` folder
-2) Run `Socratic.py`
+2) Run `Socratic.py -option <plot or equation>`
 3) Demonstrate anywhere on the screen
 4) Write your equation in the green box for the machine learning model to solve it.
 
 ## Execution 🐉
 
 ```
-python3 Socratic.py
+python3 Socratic.py -option <plot or equation>
 ```
 
 ## Results 📊
