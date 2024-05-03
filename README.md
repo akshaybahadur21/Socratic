@@ -63,6 +63,18 @@ python3 Socratic.py -option <plot or equation>
 
 <p align="center"><img src="https://github.com/akshaybahadur21/BLOB/blob/master/soc_plot.gif" height="450px"></p>
 
+## Cite Us :pushpin:
+
+```
+@article{akshaybahadur21_socratic,
+author = {Bahadur, Akshay},
+journal = {https://github.com/akshaybahadur21/Socratic},
+month = {04},
+title = {{Socratic}},
+year = {2024}
+}
+```
+
 ###### Made with ❤️ and 🦙 by Akshay Bahadur
 
 ## References 🔱
