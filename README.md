@@ -58,8 +58,15 @@ If you face any problem, kindly raise an issue
 
 ## Execution 🐉
 
+- For running Socratic in Python IDE
 ```
 python3 Socratic.py -option <plot or equation>
+```
+
+- For running the streamlit version powered by GPT-4
+
+```
+streamlit run SocraticLit.py
 ```
 
 ## Results 📊
