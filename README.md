@@ -84,6 +84,8 @@ streamlit run SocraticLit.py
 
 <p align="center"><img src="https://github.com/akshaybahadur21/BLOB/blob/master/soc_plot.gif" height="450px"></p>
 
+<p align="center"><img src="https://github.com/akshaybahadur21/BLOB/blob/master/scoratic_omni.gif" height="450px"></p>
+
 ## Cite Us :pushpin:
 
 ```
