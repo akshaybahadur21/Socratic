@@ -41,6 +41,16 @@ The Socratic plotter module utilizes artificial intelligence to accurately predi
 - Constants
 - Linear equations
 
+## Socratic Omni
+A simple AI mathematician powered by OpenAI's GPT-4o model.
+
+### Details
+- Model API: GPT-4o; Gemini(integratable)
+- Latency: 3-4 seconds (GPT-4o)
+- Support: Images, LateX, Markdown
+- Interface: Streamlit
+
+
 
 ## Python  Implementation 👨‍🔬
 
