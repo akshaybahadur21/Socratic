@@ -8,10 +8,23 @@ from src.utils.streamlitUtils import *
 image = set_streamlit_header()
 openai_client, detector, brush_thick, eraser_thick, rectKernel, options, counter_map, blkboard = set_basic_config()
 
+if 'contents' not in st.session_state:
+    st.session_state['contents'] = []
+    border = False
+else:
+    border = True
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
+
+
+def chat_content():
+    st.session_state['contents'].append(st.session_state.content)
 
 
 prompt = generate_user_prompt()
@@ -99,10 +112,11 @@ def callback(frame, xp=0, yp=0):
 result_queue = (
     queue.Queue()
 )
+chat_queue = []
 col1, col2 = st.columns([6, 6])
 
 with col1:
-    with st.container(height=570):
+    with st.container(height=590):
         ctx = webrtc_streamer(key="socratic",
                               mode=WebRtcMode.SENDRECV,
                               async_processing=True,
@@ -118,7 +132,7 @@ with col1:
                               )
 with col2:
     if ctx is not None:
-        with st.container(height=570):
+        with st.container(height=532):
             col1, col2, col3 = st.columns([4, 2, 4])
             with col1:
                 st.write(' ')
@@ -128,21 +142,27 @@ with col2:
                 st.write(' ')
             while ctx.state.playing:
                 try:
-                    result = result_queue.get()
-                    if "messages" not in st.session_state and result:
-                        st.session_state.messages = []
+                    chat = None
+                    result = None
+                    try:
+                        result = result_queue.get(timeout=1.0)
+                    except queue.Empty:
+                        result = False
+                    chat_queue = st.session_state['contents']
+                    if len(chat_queue) > 0:
+                        chat = chat_queue[-1]
+                    if result and chat is None:
+                        with st.chat_message("user", avatar="👩‍🚀"):
+                            st.write_stream(response_generator(prompt, 0.01))
+                            col1, col2, col3 = st.columns([2, 3, 3])
+                            with col1:
+                                st.write(' ')
+                            with col2:
+                                st.image('math.png', width=300, caption='Image submitted by user')
+                            with col3:
+                                st.write(' ')
 
-                    with st.chat_message("user", avatar="👩‍🚀"):
-                        st.write_stream(response_generator(prompt, 0.01))
-                        col1, col2, col3 = st.columns([2, 3, 3])
-                        with col1:
-                            st.write(' ')
-                        with col2:
-                            st.image('math.png', width=300, caption='Image submitted by user')
-                        with col3:
-                            st.write(' ')
-
-                    if result:
+                    if result and chat is None:
                         with st.chat_message("assistant", avatar="🦉"):
                             base64_image = encode_image("math.png")
                             stream = openai_client.chat.completions.create(
@@ -161,8 +181,50 @@ with col2:
                             )
                             response = st.write_stream(stream)
                             st.session_state.messages.append({"role": "assistant", "content": response})
-                        result_queue.queue.clear()
+                            result_queue.queue.clear()
+
+                    if chat and len(chat) > 0:
+                        for message in st.session_state.messages:
+                            with st.chat_message(message["role"], avatar="👩‍🚀" if message["role"] == "user" else "🦉"):
+                                st.markdown(message["content"])
+                        with st.chat_message("user", avatar="👩‍🚀"):
+                            response = st.write_stream(response_generator(chat, 0.01))
+                            col1, col2, col3 = st.columns([2, 3, 3])
+                            with col1:
+                                st.write(' ')
+                            with col2:
+                                st.image('math.png', width=300, caption='Image submitted by user')
+                            with col3:
+                                st.write(' ')
+
+                        st.session_state.messages.append({"role": "user", "content": chat})
+                        st.session_state['contents'] = []
+
+                        with st.chat_message("assistant", avatar="🦉"):
+                            base64_image = encode_image("math.png")
+                            stream = openai_client.chat.completions.create(
+                                model=st.session_state["openai_model"],
+                                messages=[
+                                    {"role": "system",
+                                     "content": "You are a helpful assistant that responds in Markdown. Help me with my math homework!"},
+                                    {"role": "user", "content": [
+                                        {"type": "text",
+                                         "text": f"Here is a follow-up prompt for the image you submitted: {chat}"},
+                                        {"type": "image_url", "image_url": {
+                                            "url": f"data:image/png;base64,{base64_image}"}
+                                         }
+                                    ]}
+                                ],
+                                stream=True,
+                            )
+                            response = st.write_stream(stream)
+                            st.session_state.messages.append({"role": "assistant", "content": response})
                 except queue.Empty:
                     result = None
 
+        with st.container(border=False):
+            with st.container():
+                prompt = st.chat_input(placeholder="Follow-up prompt for 🦉", key='content', on_submit=chat_content)
+                if prompt is not None:
+                    chat_queue.append(prompt)
 set_streamlit_footer()
