@@ -76,7 +76,7 @@ python3 Socratic.py -option <plot or equation>
 - For running the streamlit version powered by GPT-4
 
 ```
-streamlit run SocraticLit.py
+streamlit run SocraticOmni.py
 ```
 
 ## Results 📊
